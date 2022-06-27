@@ -6,14 +6,37 @@ import java.util.*;
 
 public class EmployeeService {
     private static final int LIMIT = 10;
+    private final Map<String, Employee> employees = new HashMap<>(Map.of(
 
-    private final Map<String, Employee> employees = new HashMap<>();
+            "Ivan Ivanov",
+            new Employee("Ivan","Ivanov ", 1, 89000),
+            "Petr Petrov ",
+            new Employee("Petr", "Petrov",2, 56000),
+            "Semen Semenov ",
+            new Employee("Semen ","Semenov ", 3, 97000),
+            "Stepan Barsukov ",
+            new Employee("Stepan ","Barsukov ", 4, 64000),
+            "Olga Kosatkina ",
+            new Employee("Olga ", "Kosatkina ",5, 83000),
+            "Komarova Yana ",
+            new Employee("Yana ", "Komarova ", 5, 71000),
+            "Oleg Lobanov ",
+            new Employee("Oleg","Lobanov" , 4, 88000),
+            "Kirill Kirillov ",
+            new Employee("Kirill ", "Kirillov ",3, 104000),
+            "Sofia Kolos  ",
+            new Employee("Sofia", "Kolos",2, 100400),
+            "Ivan Sidorov",
+            new Employee("Ivan ", "Sidorov ",1, 97000)
+    ));
     private String getKey(Employee employee){
         return employee.getFirstName()+ employee.getLastName();
     }
 
-    public Employee add (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+
+
+    public Employee add (String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName,department, salary );
         if (employees.containsKey(getKey(employee))) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -23,8 +46,8 @@ public class EmployeeService {
         }
         throw new EmployeeStorageIsFullException();
     }
-    public Employee remove (String firstName, String lastName){
-        Employee employee = new Employee(firstName, lastName);
+    public Employee remove (String firstName, String lastName,  int department, int salary){
+        Employee employee = new Employee(firstName, lastName,department, salary );
         if (!employees.containsKey(getKey(employee))) {
             throw new EmployeeNotFoundException();
         }
@@ -32,8 +55,8 @@ public class EmployeeService {
         return employee;
     }
 
-    public Employee find (String firstName, String lastName){
-        Employee employee = new Employee(firstName, lastName);
+    public Employee find (String firstName, String lastName, int department, int salary){
+        Employee employee = new Employee(firstName, lastName,department, salary );
         if (!employees.containsKey(getKey(employee))) {
             throw new EmployeeNotFoundException();
         }
@@ -42,5 +65,10 @@ public class EmployeeService {
     public List<Employee> getAll () {
         return new ArrayList<>(employees.values());
     }
+
+
+
+
+
 
 }
