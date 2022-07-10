@@ -1,10 +1,18 @@
-package com.example.HW27;
+package com.example.HW27.Service;
+import com.example.HW27.Employee;
+import com.example.HW27.Exceptions.CheckException;
+import com.example.HW27.Exceptions.EmployeeAlreadyAddedException;
+import com.example.HW27.Exceptions.EmployeeNotFoundException;
+import com.example.HW27.Exceptions.EmployeeStorageIsFullException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 import java.util.*;
 @Service
 
-public class EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
     private static final int LIMIT = 10;
     private final Map<String, Employee> employees = new HashMap<>(Map.of(
 
@@ -34,8 +42,9 @@ public class EmployeeService {
     }
 
 
-
-    public Employee add (String firstName, String lastName, int department, int salary) {
+@Override
+    public Employee add(String firstName, String lastName, int department, int salary) {
+check(firstName,lastName);
         Employee employee = new Employee(firstName, lastName,department, salary );
         if (employees.containsKey(getKey(employee))) {
             throw new EmployeeAlreadyAddedException();
@@ -46,7 +55,9 @@ public class EmployeeService {
         }
         throw new EmployeeStorageIsFullException();
     }
+    @Override
     public Employee remove (String firstName, String lastName,  int department, int salary){
+        check(firstName,lastName);
         Employee employee = new Employee(firstName, lastName,department, salary );
         if (!employees.containsKey(getKey(employee))) {
             throw new EmployeeNotFoundException();
@@ -54,21 +65,26 @@ public class EmployeeService {
         employees.remove(getKey(employee));
         return employee;
     }
-
+@Override
     public Employee find (String firstName, String lastName, int department, int salary){
+    check(firstName,lastName);
         Employee employee = new Employee(firstName, lastName,department, salary );
         if (!employees.containsKey(getKey(employee))) {
             throw new EmployeeNotFoundException();
         }
         return employee;
     }
+    @Override
     public List<Employee> getAll () {
         return new ArrayList<>(employees.values());
     }
 
 
-
-
+    private void check (String firstName, String lastName) {
+       if(!(isAlpha(firstName) && isAlpha(lastName)));{
+           throw new CheckException();
+        }
+    }
 
 
 }

@@ -1,4 +1,6 @@
-package com.example.HW27;
+package com.example.HW27.Controller;
+import com.example.HW27.Employee;
+import com.example.HW27.Service.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,10 +12,10 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeServiceImpl;
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public EmployeeController(EmployeeServiceImpl employeeServiceImpl) {
+        this.employeeServiceImpl = employeeServiceImpl;
     }
 
     @GetMapping ( "/add")
@@ -21,7 +23,7 @@ public class EmployeeController {
                          @RequestParam ("lastName") String lastName,
                          @RequestParam("department") int department,
                          @RequestParam ("salary")int salary){
-        return employeeService.add (firstName, lastName, department,salary);
+        return employeeServiceImpl.add (firstName, lastName, department,salary);
     }
 
     @GetMapping(  "/remove")
@@ -29,18 +31,19 @@ public class EmployeeController {
                             @RequestParam ("lastName") String lastName,
                             @RequestParam("department") int department,
                             @RequestParam ("salary")int salary){
-        return employeeService.remove(firstName, lastName, department, salary);
+        return employeeServiceImpl.remove(firstName, lastName, department, salary);
     }
     @GetMapping ( "/find")
     public Employee find ( @RequestParam ("firstName") String firstName,
                            @RequestParam ("lastName") String lastName,
                            @RequestParam("department") int department,
                            @RequestParam ("salary")int salary){
-        return employeeService.find(firstName, lastName, department, salary);
+        return employeeServiceImpl.find(firstName, lastName, department, salary);
     }
     @GetMapping
     public List<Employee> getAll(){
-        return employeeService.getAll();
+        return employeeServiceImpl.getAll();
     }
+
 }
 
