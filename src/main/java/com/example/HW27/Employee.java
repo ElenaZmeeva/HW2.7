@@ -1,18 +1,16 @@
 package com.example.HW27;
-import java.util.Locale;
-import java.util.Objects;
 
-import static org.apache.tomcat.util.IntrospectionUtils.capitalize;
+import java.util.Objects;
 
 public class Employee {
     private final String firstName;
     private final String lastName;
-    private int department;
-    private double salary;
+    private final int department;
+    private final double salary;
 
     public Employee(String firstName, String lastName, int department, int salary) {
-        this.firstName = capitalize(firstName.toLowerCase());
-        this.lastName=capitalize(lastName.toLowerCase());
+        this.firstName = firstName;
+        this.lastName=lastName;
         this.department=department;
         this.salary=salary;
     }

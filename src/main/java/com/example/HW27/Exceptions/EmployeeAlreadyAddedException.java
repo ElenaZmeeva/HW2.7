@@ -1,4 +1,4 @@
-package com.example.HW27;
+package com.example.HW27.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

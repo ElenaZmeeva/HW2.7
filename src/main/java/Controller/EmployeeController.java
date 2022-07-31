@@ -1,6 +1,6 @@
-package com.example.HW27.Controller;
+package Controller;
 import com.example.HW27.Employee;
-import com.example.HW27.Service.EmployeeServiceImpl;
+import Service.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
